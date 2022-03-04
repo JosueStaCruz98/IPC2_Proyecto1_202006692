@@ -21,6 +21,20 @@ class listaPatrones:
             print(actual.Patron.codigo)#obtengo el código 
             listadelpatron.recorrer()
             actual=actual.siguiente
+          
+    """
+    Por el momento esto no me está funcionando
+    def buscarPatrones(self, docu):
+        actual = self.cabeza
+        while actual != None:
+            if actual.Patron.codigo == docu:
+                listadelpatron.recorrer()
+        for d in self:
+            if docu == :
+                return print(True)
+        return print(False)
+    """
+        
 
         
     

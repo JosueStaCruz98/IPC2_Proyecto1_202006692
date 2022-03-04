@@ -29,10 +29,11 @@ class listaPisos:
     def buscarNombre(self, docu):
         actual = self.cabeza
         while actual != None:
-            if actual.Piso.nombre == docu:     
+            if actual.Piso.nombre == docu:  
                 listaa=actual.Piso.getLista()
-                listaa.recorrer()
+                actual2 = listaa.cabeza
                 print("Nombre: ", actual.Piso.nombre)
+            else:    
                 actual == None
                 break
             actual=actual.siguiente

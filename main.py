@@ -1,4 +1,8 @@
-global listaN 
+#Variables Globales
+global listaN
+global listaPi
+global lista_pa
+global lista_c
 
 from re import X
 from xml.dom import minidom 
@@ -19,39 +23,42 @@ def MenuPisos():
         print("Ingrese la opcion que desea")
         opcion = int(input())
         if opcion ==1:
-            ImprimirLista(listaPi)
+            print("HOLAAAAA")
+            #ImprimirLista(listaPi)
         elif opcion == 2:
             print("Seleccionar nuevo código")
         else:
             False
             break
 
+#Este menú se abre al momento de seleccionar la ruta del archivo
 def MenuPrincipal():
     while True:    
-        print("|================MENÚ PRINCIPAL================|\n|  1. Seleccionar Patrón y Código                   |\n|  3. Salir.                                   |\n|==============================================|")
+        print("|================MENÚ PRINCIPAL================|\n|  1. Seleccionar Patrón y Código              |\n|  2. Salir.                                   |\n|==============================================|")
         print("Ingrese la opcion que desea")
         opcion = int(input())
         if opcion ==1:
-            ImprimirLista(listaPi)
-            print("Ingrese el nombre del ejemplo: ")
-            doccc = input()
-            listaPi.buscarNombre(doccc)
-        elif opcion == 2:
-            print("Seleccionar nuevo código")
+            #ImprimirLista(listaPi)
+            print("Ingrese el nombre del Patrón: ")
+            patron = input()
+            print("Ingrese el código ")
+            #lista_pa.buscarPatrones(doccc) La función no corre correctamente 
         else:
             False
             break
-
+#Imprime por completo el contenido del archivo 
 def ImprimirLista(lista):
     lista.recorrer()
 
-
+#Función que permite cargar el archivo
 def cargaarchivo():
+    try:
         documentt = minidom.parse(str(input("Ingrese la ruta de su archivo:\n")))
         raiz= documentt.documentElement
         nombreFabrica = raiz.nodeName
-        global listaPi 
+        
         listaPi = listaPisos()
+        
         todosLosPisos = raiz.getElementsByTagName("piso")
         for piso in todosLosPisos:
             if piso.hasAttribute("nombre"):
@@ -96,10 +103,13 @@ def cargaarchivo():
                         listax=patronUno.getLista()
                 pisoUno.setLista(lista_pa)
                 listaPi.insertarPiso(pisoUno)
-
+        MenuPrincipal()#Ya cargado el archivo se activa el menú
+    except:
+        print("Por favor verifique que haya ingresado una ruta adecuada a su proyecto")
+        
 while True:
     cargaarchivo()
-    MenuPrincipal()
+
 
 
 
