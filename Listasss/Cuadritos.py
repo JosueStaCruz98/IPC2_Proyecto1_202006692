@@ -1,6 +1,6 @@
-from NodoCuadro import NodoCuadro
+from Nodos.NodoCuadro import NodoCuadro
 
-class listaCuadritos:
+class Cuadritos:
     def __init__(self):
         self.cabeza = None
 
@@ -16,6 +16,6 @@ class listaCuadritos:
     def recorrer(self):
         actual = self.cabeza
         while actual != None:
-            print(" fila="+actual.Cuadro.x,"columna="+actual.Cuadro.y,"color:"+actual.Cuadro.valor,"->")
+            print("Fila="+actual.Cuadro.x,"Columna="+actual.Cuadro.y,"Color -> "+actual.Cuadro.valor,"")
             actual=actual.siguiente
         

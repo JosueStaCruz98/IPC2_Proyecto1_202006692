@@ -1,6 +1,6 @@
-from NodoPatron import NodoPatron
+from Nodos.NodoPatron import NodoPatron
 
-class listaPatrones:
+class Patrones:
     def __init__(self):
         self.cabeza = None
 

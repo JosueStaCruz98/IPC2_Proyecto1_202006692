@@ -1,2 +1,0 @@
-print("|================MENÚ PRINCIPAL================|\n|  1. Seleccionar Patrón y Código              |\n|  3. Salir.                                   |\n|==============================================|")
-print("Ingrese la opcion que desea")
