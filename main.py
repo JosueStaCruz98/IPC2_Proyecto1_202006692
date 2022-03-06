@@ -1,27 +1,18 @@
-#Variables Globales
-global listaN
-global listaPi
-global lista_pa
-global lista_pa2
-global lista_c
-global lista_c2
-global d
-
 from re import X
 from xml.dom import minidom 
 from xml.dom.minidom import parse
-from Listasss.Cuadritos import Cuadritos
-from Cuadro import Cuadro
-from Patron import Patron
-from Listasss.Patrones import Patrones
-from Piso import Piso
-from Listasss.Pisos import Pisos
-from tkinter import filedialog, Tk
 from graphviz import Digraph
 from Lista import Lista
 
-lista = Lista()
+from Listasss.Cuadritos import Cuadritos
+from Listasss.Patrones import Patrones
+from Listasss.Pisos import Pisos
 
+from Piso import Piso
+from Cuadro import Cuadro
+from Patron import Patron
+
+lista = Lista()
 
 #Se abre cuando ya haya seleccionado un nombre y codigo
 def MenuPisos(listaaa):
@@ -30,14 +21,13 @@ def MenuPisos(listaaa):
         print("Ingrese la opcion que desea")
         opcion = int(input())
         if opcion ==1:
-            print(cadenaColores)
+            print(cadenaColores)#Se imprime la cadena de colores
             guardarPatron(cadenaColores, noFilas, noColumnas)
-            lista.graficarLista(4,8)
-            #ImprimirLista(listaPi)
+            lista.graficarLista(noColumnas,noFilas*noColumnas)
         elif opcion == 2:
             print("Seleccionar nuevo código")
+            print("Esta opción aún no se encuentra disponible")
         else:
-            #listaPisos.clear()
             False
             break
 
@@ -68,7 +58,6 @@ def cargaarchivo():
         documentt = minidom.parse(str(input("Ingrese la ruta de su archivo:\n")))
         global raiz
         raiz= documentt.documentElement
-        nombreFabrica = raiz.nodeName
         
         listaPi = Pisos()
         
@@ -77,22 +66,22 @@ def cargaarchivo():
             if piso.hasAttribute("nombre"):
                 nombrePiso = piso.getAttribute("nombre")
 
-                filaTotal = piso.getElementsByTagName("R")[0]
-                noFilas = filaTotal.childNodes[0].data
+                FilaTotal = piso.getElementsByTagName("R")[0]
+                noF = FilaTotal.childNodes[0].data
 
-                columnaTotal = piso.getElementsByTagName("C")[0]
-                noColumnas = columnaTotal.childNodes[0].data
+                ColumnaTotal = piso.getElementsByTagName("C")[0]
+                noC = ColumnaTotal.childNodes[0].data
 
-                volteosTotales = piso.getElementsByTagName("F")[0]
-                precioVolteo = volteosTotales.childNodes[0].data
+                VolteosTotales = piso.getElementsByTagName("F")[0]
+                precioV = VolteosTotales.childNodes[0].data
 
-                intercambiosTotales = piso.getElementsByTagName("S")[0]
-                precioIntercambio = intercambiosTotales.childNodes[0].data
+                IntercambiosTotales = piso.getElementsByTagName("S")[0]
+                precioI = IntercambiosTotales.childNodes[0].data
 
                 lista_pa = Patrones()
 
                 patrones = piso.getElementsByTagName("patron")
-                pisoUno = Piso(nombrePiso,noFilas,noColumnas,precioVolteo,precioIntercambio)
+                pisoUno = Piso(nombrePiso,noF,noC,precioV,precioI)
 
                 for patroncito in patrones:
                     if patroncito.hasAttribute("codigo"):
@@ -102,8 +91,8 @@ def cargaarchivo():
                         y=1
                         z=0
                         lista_c=Cuadritos()
-                        for fila in range(int(noFilas)):
-                            for columna in range(int(noColumnas)):                               
+                        for fila in range(int(noF)):
+                            for columna in range(int(noC)):                               
                                 cuadritoUno=Cuadro(str(x),str(y),patronColores[z])
                                 lista_c.insertarCuadrito(cuadritoUno)
                                 y=y+1
@@ -128,7 +117,6 @@ def guardarPatron(patron, filas, columnas):
             letra = patron[(i*columnas)+j]
             row = str(i)
             col = str(j)
-            print("letra: "+letra+" fila: "+row+" columna: "+col)
             lista.añadirNodo(letra, row, col)
 
 #Busca el nombre y el código y luego imprime el contenido de él
@@ -143,19 +131,19 @@ def buscarImprimir(noPiso, codito):
                 #print("el nombre es:")
                 nombrePiso = piso.getAttribute("nombre")
 
-                filaTotal = piso.getElementsByTagName("R")[0]
+                fTotal = piso.getElementsByTagName("R")[0]
                 global noFilas
-                noFilas = int(filaTotal.childNodes[0].data)
+                noFilas = int(fTotal.childNodes[0].data)
 
-                columnaTotal = piso.getElementsByTagName("C")[0]
+                cTotal = piso.getElementsByTagName("C")[0]
                 global noColumnas
-                noColumnas = int(columnaTotal.childNodes[0].data)
+                noColumnas = int(cTotal.childNodes[0].data)
 
-                volteosTotales = piso.getElementsByTagName("F")[0]
-                precioVolteo = volteosTotales.childNodes[0].data
+                vTotales = piso.getElementsByTagName("F")[0]
+                precioVolteo = vTotales.childNodes[0].data
 
-                intercambiosTotales = piso.getElementsByTagName("S")[0]
-                precioIntercambio = intercambiosTotales.childNodes[0].data
+                iTotales = piso.getElementsByTagName("S")[0]
+                precioIntercambio = iTotales.childNodes[0].data
             else:
                 continue
 
@@ -168,33 +156,31 @@ def buscarImprimir(noPiso, codito):
                 if patroncito.hasAttribute("codigo"):
                     if codito == patroncito.getAttribute("codigo"):
                         #print("Lo encontró")
-                        codigoPatron = patroncito.getAttribute("codigo")
+                        cPatron = patroncito.getAttribute("codigo")
                         patronColores = patroncito.childNodes[0].nodeValue.split("\n")[1]
                         global cadenaColores
-                        cadenaColores = str(patronColores)
-                        
+                        cadenaColores = str(patronColores)                       
                         x=1
                         y=1
                         z=0
                         lista_c2=Cuadritos()
                         for fila in range(int(noFilas)):
                             for columna in range(int(noColumnas)):                               
-                                cuadritoUno=Cuadro(str(x),str(y),patronColores[z])
-                                lista_c2.insertarCuadrito(cuadritoUno)
+                                cuadritoDos=Cuadro(str(x),str(y),patronColores[z])
+                                lista_c2.insertarCuadrito(cuadritoDos)
                                 y=y+1
                                 z=z+1
                             y=1
                             x=x+1
-                        patronUno = Patron(codigoPatron)
-                        patronUno.setLista(lista_c2)
-                        lista_pa2.insertarPatron(patronUno)
-                        listax=patronUno.getLista()
+                        patronDos = Patron(cPatron)
+                        patronDos.setLista(lista_c2)
+                        lista_pa2.insertarPatron(patronDos)
                         #Quiebre
                     else:
                         continue
             pisito.setLista(lista_pa2)
             listaSelec.insertarPiso(pisito)
-            ImprimirLista(listaSelec)
+            ImprimirLista(listaSelec)#Impresión de la lista seleccionada por el usuario
             MenuPisos(listaSelec)#Ya seleccionado el nombre y codigo se redirige que se quiere hacer
 
 while True:

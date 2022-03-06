@@ -2,19 +2,19 @@ from Nodos.NodoPiso import NodoPiso
 
 class Pisos:
     def __init__(self):
-        self.cabeza = None
+        self.head = None
 
     def insertarPiso(self, Piso):
-        if self.cabeza is None:
-            self.cabeza = NodoPiso(Piso=Piso)
+        if self.head is None:
+            self.head = NodoPiso(Piso=Piso)
         else:
-            actual = self.cabeza
-            while actual.siguiente:
-                actual = actual.siguiente
-            actual.siguiente = NodoPiso(Piso=Piso)
+            actual = self.head
+            while actual.next:
+                actual = actual.next
+            actual.next = NodoPiso(Piso=Piso)
 
     def recorrer(self):
-        actual = self.cabeza
+        actual = self.head
         while actual != None:
             listaa=actual.Piso.getLista()
             print("Nombre:",actual.Piso.nombre)
@@ -24,16 +24,5 @@ class Pisos:
             print("Precio intercambio:",actual.Piso.intercambio)
             listaa.recorrer()
             print("===================================================")
-            actual=actual.siguiente
+            actual=actual.next
 
-    def buscarNombre(self, docu):
-        actual = self.cabeza
-        while actual != None:
-            if actual.Piso.nombre == docu:  
-                listaa=actual.Piso.getLista()
-                actual2 = listaa.cabeza
-                print("Nombre: ", actual.Piso.nombre)
-            else:    
-                actual == None
-                break
-            actual=actual.siguiente

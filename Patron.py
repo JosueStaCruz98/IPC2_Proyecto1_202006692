@@ -1,8 +1,8 @@
-from listaCuadritos import listaCuadritos
+from Listasss.Cuadritos import Cuadritos
 class Patron:
     def __init__(self, codigo):
         self.codigo = codigo
-        self.listaCuadritos = listaCuadritos
+        self.listaCuadritos = Cuadritos
     
     def setLista(self, listaCuadritos):
         self.listaCuadritos = listaCuadritos
