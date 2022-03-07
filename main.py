@@ -52,10 +52,12 @@ def ImprimirLista(lista1):
     lista1.recorrer()
 
 #Función que permite cargar el archivo
-def cargaarchivo():
+def Carga():
+    print("Pisos Artesanales S.A")
+    print("Bienvenido al programa, usuario nuevo!!")
     try:
         global documentt
-        documentt = minidom.parse(str(input("Ingrese la ruta de su archivo:\n")))
+        documentt = minidom.parse(str(input("Por favor, ingrese la ruta de su archivo:\n")))
         global raiz
         raiz= documentt.documentElement
         
@@ -184,7 +186,7 @@ def buscarImprimir(noPiso, codito):
             MenuPisos(listaSelec)#Ya seleccionado el nombre y codigo se redirige que se quiere hacer
 
 while True:
-    cargaarchivo()
+    Carga()
 
 
 
